@@ -1,0 +1,20 @@
+{
+  "name": "zkp-wasm",
+  "type": "module",
+  "collaborators": [
+    "J. Fryer <fryer@gabanodelab.com>"
+  ],
+  "description": "Browser-based ZKP prover WASM bindings.",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "files": [
+    "zkp_wasm_bg.wasm",
+    "zkp_wasm.js",
+    "zkp_wasm.d.ts"
+  ],
+  "main": "zkp_wasm.js",
+  "types": "zkp_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
