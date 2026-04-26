@@ -250,6 +250,48 @@
   .prop-card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
   .prop-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
 
+  /* ── Pricing ── */
+  .pricing-section { margin-bottom: 80px; text-align: center; }
+  .pricing-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .pricing-section > p { color: var(--muted); margin-bottom: 40px; font-size: 0.95rem; }
+  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  @media(max-width:640px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .pricing-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; text-align: left;
+    position: relative; transition: border-color .2s, transform .2s;
+  }
+  .pricing-card:hover { transform: translateY(-2px); }
+  .pricing-card.featured {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(88,166,255,0.1);
+  }
+  .featured-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #000; font-size: 0.7rem; font-weight: 700;
+    padding: 4px 14px; border-radius: 100px; white-space: nowrap;
+  }
+  .pricing-tier { font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .pricing-price { font-size: 2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 4px; }
+  .pricing-price span { font-size: 0.9rem; font-weight: 400; color: var(--muted); }
+  .pricing-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+  .pricing-features { list-style: none; margin-bottom: 24px; }
+  .pricing-features li { font-size: 0.82rem; color: var(--text); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  .pricing-features li:last-child { border-bottom: none; }
+  .pricing-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  .btn-pricing {
+    width: 100%; padding: 12px; border-radius: 8px; font-weight: 700;
+    font-size: 0.875rem; cursor: pointer; transition: all .2s;
+    font-family: 'Inter', sans-serif; text-decoration: none;
+    display: block; text-align: center;
+  }
+  .btn-pricing-free { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+  .btn-pricing-free:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-pricing-pro { background: var(--accent); color: #000; border: none; }
+  .btn-pricing-pro:hover { opacity: 0.85; }
+  .btn-pricing-enterprise { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-pricing-enterprise:hover { border-color: var(--accent2); color: var(--accent2); }
+
   /* ── CTA ── */
   .cta {
     text-align: center; padding: 64px 0 80px;
@@ -292,7 +334,7 @@
     <div class="nav-links">
       <a href="https://github.com/T3chj3ff/ZKPRust">GitHub</a>
       <a href="https://www.npmjs.com/package/@gabanode/zkp">npm</a>
-      <a href="mailto:fryer@gabanodelab.com" class="btn-nav">Get Enterprise Access</a>
+      <a href="mailto:admin@gabanodelab.com" class="btn-nav">Get Enterprise Access</a>
     </div>
   </nav>
 
@@ -429,12 +471,64 @@
     </div>
   </div>
 
+  <!-- Pricing -->
+  <div class="pricing-section">
+    <h2>Simple, Transparent Pricing</h2>
+    <p>Start free. Scale when you're ready. Enterprise contracts available for compliance-critical deployments.</p>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price">$0 <span>/ month</span></div>
+        <div class="pricing-desc">For developers evaluating or building at small scale.</div>
+        <ul class="pricing-features">
+          <li>500 verifications / month</li>
+          <li>@gabanode/zkp npm SDK</li>
+          <li>WASM browser library</li>
+          <li>Community support (GitHub)</li>
+        </ul>
+        <a href="https://github.com/T3chj3ff/ZKPRust" class="btn-pricing btn-pricing-free" target="_blank">Get Started Free</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="featured-badge">Most Popular</div>
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-price">$49 <span>/ month</span></div>
+        <div class="pricing-desc">For production apps that need reliable, high-volume verification.</div>
+        <ul class="pricing-features">
+          <li>25,000 verifications / month</li>
+          <li>All Free tier features</li>
+          <li>Managed API endpoint</li>
+          <li>Usage dashboard</li>
+          <li>Email support</li>
+        </ul>
+        <a href="mailto:admin@gabanodelab.com?subject=ZKPRust Pro - Get Started&body=Hi, I'd like to get started with ZKPRust Pro ($49/month). Please send me an API key and onboarding instructions." class="btn-pricing btn-pricing-pro">Upgrade to Pro →</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">For GovTech, healthcare, and financial services with compliance requirements.</div>
+        <ul class="pricing-features">
+          <li>Unlimited verifications</li>
+          <li>99.9% SLA</li>
+          <li>HIPAA / CJIS alignment letter</li>
+          <li>On-prem deployment option</li>
+          <li>Custom integration support</li>
+          <li>Named account manager</li>
+        </ul>
+        <a href="mailto:admin@gabanodelab.com?subject=ZKPRust Enterprise Inquiry&body=Hi, I'm interested in ZKPRust Enterprise for our organization. Please contact me to discuss our requirements." class="btn-pricing btn-pricing-enterprise">Contact Us →</a>
+      </div>
+
+    </div>
+  </div>
+
   <div class="cta">
     <h2>Ready to Ship Password-Free Auth?</h2>
     <p>Add it to your Node.js or Python backend in minutes. Enterprise support and compliance documentation available.</p>
     <div class="cta-btns">
       <a href="https://www.npmjs.com/package/@gabanode/zkp" class="btn-cta-primary">npm install @gabanode/zkp</a>
-      <a href="mailto:fryer@gabanodelab.com" class="btn-cta-secondary">Enterprise Contact</a>
+      <a href="mailto:admin@gabanodelab.com?subject=ZKPRust Enterprise Inquiry" class="btn-cta-secondary">Enterprise Contact</a>
     </div>
   </div>
 

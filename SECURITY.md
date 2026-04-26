@@ -13,7 +13,7 @@
 
 Report security vulnerabilities directly to:
 
-**Email:** fryer@gabanodelab.com  
+**Email:** admin@gabanodelab.com  
 **Subject line:** `[ZKPRust SECURITY] <brief description>`  
 **PGP:** Available on request
 
@@ -57,7 +57,7 @@ proof correlation attacks impossible.
 ## Known Limitations
 
 - This library has **not yet undergone a formal third-party cryptographic audit**.
-  Enterprise customers requiring an audit letter should contact fryer@gabanodelab.com.
+  Enterprise customers requiring an audit letter should contact admin@gabanodelab.com.
 - The `zkp-python` binding has limited test coverage on Windows. Production use
   on Windows Python is not currently recommended.
 

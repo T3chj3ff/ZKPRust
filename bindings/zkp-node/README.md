@@ -134,7 +134,7 @@ test('wrong key is rejected', () => {
 ## GovTech / Enterprise
 
 Need a managed REST verification API, compliance documentation (FIPS, WCAG, VPAT), or a custom integration?  
-Contact: **fryer@gabanodelab.com** | [gabanodelab.com](https://gabanodelab.com)
+Contact: **admin@gabanodelab.com** | [gabanodelab.com](https://gabanodelab.com)
 
 ---
 
