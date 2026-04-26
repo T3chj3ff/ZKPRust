@@ -35,3 +35,7 @@ dist/
 
 # Crucible audit output
 .crucible/
+
+# WASM binary (too large for git, built by CI)
+demo/pkg/*.wasm
+!demo/pkg/zkp_wasm_bg.wasm.d.ts
