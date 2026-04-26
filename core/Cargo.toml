@@ -1,0 +1,16 @@
+[package]
+name = "zkprust-core"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+rand_core.workspace = true
+sha2.workspace = true
+zeroize.workspace = true
+subtle.workspace = true
+thiserror.workspace = true
+curve25519-dalek.workspace = true
+merlin.workspace = true
+tracing.workspace = true

@@ -1,0 +1,12 @@
+{
+  "name": "@gabanode/zkp-node",
+  "version": "0.1.0",
+  "description": "GABAnode Native ZKPRust Verifier Middleware",
+  "main": "index.js",
+  "scripts": {
+    "build": "napi build --platform --release"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^2.16.0"
+  }
+}

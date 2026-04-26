@@ -1,0 +1,29 @@
+[workspace]
+members = [
+    "core",
+    "prover",
+    "verifier",
+    "bindings/zkp-wasm",
+    "bindings/zkp-node",
+    "bindings/zkp-python"
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+authors = ["J. Fryer <fryer@gabanodelab.com>"]
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/T3chj3ff/ZKPRust"
+description = "GABAnode Lab LLC - ZKPRust Core Authentication Engine"
+
+[workspace.dependencies]
+rand_core = { version = "0.6", features = ["getrandom"] }
+sha2 = "0.10"
+zeroize = { version = "1.8", features = ["zeroize_derive"] }
+subtle = "2.6"
+thiserror = "2.0"
+curve25519-dalek = { version = "4.1", features = ["rand_core"] }
+merlin = "3.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json"] }

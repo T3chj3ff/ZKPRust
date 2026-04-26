@@ -1,0 +1,19 @@
+[package]
+name = "zkp-node"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Node.js Express Native Addon via N-API for fast verification."
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+zkprust-verifier = { path = "../../verifier" }
+zkprust-prover = { path = "../../prover" }
+napi = "2.16"
+napi-derive = "2.16"
+
+[build-dependencies]
+napi-build = "2"

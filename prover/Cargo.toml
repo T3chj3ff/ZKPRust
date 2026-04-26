@@ -1,0 +1,12 @@
+[package]
+name = "zkprust-prover"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+zkprust-core = { path = "../core" }
+rand_core.workspace = true
+curve25519-dalek.workspace = true
+merlin.workspace = true

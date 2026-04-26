@@ -1,0 +1,37 @@
+# Rust build artifacts
+/target/
+**/target/
+
+# Cargo lock for libraries (keep for applications, remove for libraries published to crates.io)
+# We keep it for reproducible CI builds
+# Cargo.lock
+
+# PyO3 / maturin wheels
+*.whl
+*.so
+*.dylib
+*.dll
+
+# Node.js build artifacts (napi-rs)
+bindings/zkp-node/*.node
+bindings/zkp-node/index.js
+bindings/zkp-node/index.d.ts
+
+# WASM build artifacts
+bindings/zkp-wasm/pkg/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+dist/
+*.egg-info/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Crucible audit output
+.crucible/

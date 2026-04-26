@@ -1,0 +1,15 @@
+[package]
+name = "zkprust-verifier"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+zkprust-core = { path = "../core" }
+curve25519-dalek.workspace = true
+merlin.workspace = true
+
+[dev-dependencies]
+zkprust-prover = { path = "../prover" }
+sha2.workspace = true

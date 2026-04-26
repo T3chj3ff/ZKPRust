@@ -1,0 +1,16 @@
+# ZKPRust T3chnexus Linting Standards
+
+# Disallow unsafe blocks in core logic
+# forbid(unsafe_code) is added at the crate attribute level in core/lib.rs.
+
+[lints.clippy]
+pedantic = "warn"
+perf = "warn"
+style = "warn"
+complexity = "warn"
+suspicious = "warn"
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "warn"
+unimplemented = "warn"
