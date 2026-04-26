@@ -1,12 +1,69 @@
 {
-  "name": "@gabanode/zkp-node",
+  "name": "@gabanode/zkp",
   "version": "0.1.0",
-  "description": "GABAnode Native ZKPRust Verifier Middleware",
+  "description": "Zero-Knowledge Proof authentication SDK — passwordless auth for Node.js/Express and FastAPI without storing credentials",
   "main": "index.js",
+  "types": "index.d.ts",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/T3chj3ff/ZKPRust.git"
+  },
+  "homepage": "https://zkp.gabanodelab.com",
+  "bugs": {
+    "url": "https://github.com/T3chj3ff/ZKPRust/issues"
+  },
+  "keywords": [
+    "zero-knowledge-proof",
+    "zkp",
+    "authentication",
+    "passwordless",
+    "schnorr",
+    "cryptography",
+    "privacy",
+    "rust",
+    "napi",
+    "express",
+    "middleware",
+    "govtech"
+  ],
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "index.darwin-arm64.node",
+    "index.darwin-x64.node",
+    "README.md"
+  ],
   "scripts": {
-    "build": "napi build --platform --release"
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi build --platform --release"
+  },
+  "optionalDependencies": {
+    "@gabanode/zkp-darwin-x64": "0.1.0",
+    "@gabanode/zkp-darwin-arm64": "0.1.0",
+    "@gabanode/zkp-linux-x64-gnu": "0.1.0",
+    "@gabanode/zkp-linux-arm64-gnu": "0.1.0",
+    "@gabanode/zkp-win32-x64-msvc": "0.1.0"
   },
   "devDependencies": {
     "@napi-rs/cli": "^2.16.0"
+  },
+  "napi": {
+    "name": "zkp",
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "aarch64-apple-darwin",
+        "aarch64-unknown-linux-gnu"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">= 16"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

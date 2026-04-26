@@ -1,0 +1,27 @@
+name = "zkp-verify-api"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+workers_dev = false
+
+# Custom domain: zkp.gabanodelab.com
+routes = [
+  { pattern = "zkp.gabanodelab.com/v1/*", zone_name = "gabanodelab.com" }
+]
+
+# KV namespaces — create these with: wrangler kv:namespace create ZKP_USAGE / ZKP_KEYS
+[[kv_namespaces]]
+binding = "ZKP_USAGE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID_USAGE"
+
+[[kv_namespaces]]
+binding = "ZKP_KEYS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID_KEYS"
+
+# Secrets — set with: wrangler secret put <NAME>
+# Required:
+#   WORKER_SECRET         — shared secret with origin verifier
+#   STRIPE_SECRET_KEY     — sk_live_... for pro tier billing
+#   ORIGIN_VERIFY_URL     — https://zkp-origin.fly.dev/verify
+
+[observability]
+enabled = true

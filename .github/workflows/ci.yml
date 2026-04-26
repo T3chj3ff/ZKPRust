@@ -1,0 +1,136 @@
+name: CI — Test, Build & Publish
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  # ─── 1. Rust tests ──────────────────────────────────────────────────────────
+  test:
+    name: Rust Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run integration tests
+        run: cargo test -p zkprust-verifier --verbose
+
+      - name: Clippy (no warnings allowed)
+        run: cargo clippy --workspace -- -D warnings
+
+  # ─── 2. Build Node.js native binary (arm64 macOS + x64 Linux) ──────────────
+  build-node:
+    name: Build @gabanode/zkp (${{ matrix.target }})
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            artifact: index.linux-x64-gnu.node
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            artifact: index.darwin-arm64.node
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust stable + target
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install napi-rs CLI
+        run: npm install -g @napi-rs/cli
+
+      - name: Build native binary
+        working-directory: bindings/zkp-node
+        run: napi build --platform --release --target ${{ matrix.target }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-${{ matrix.target }}
+          path: bindings/zkp-node/${{ matrix.artifact }}
+
+  # ─── 3. Publish @gabanode/zkp to npm ────────────────────────────────────────
+  publish-npm:
+    name: Publish to npm
+    needs: build-node
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all native binaries
+        uses: actions/download-artifact@v4
+        with:
+          path: bindings/zkp-node/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Publish to npm
+        working-directory: bindings/zkp-node
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # ─── 4. Build Python wheel and publish to PyPI ──────────────────────────────
+  publish-pypi:
+    name: Publish gabanode-zkp to PyPI (${{ matrix.target }})
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64
+          - os: macos-latest
+            target: aarch64
+
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build wheels with maturin
+        uses: PyO3/maturin-action@v1
+        with:
+          working-directory: bindings/zkp-python
+          target: ${{ matrix.target }}
+          args: --release --out dist
+          manylinux: auto
+
+      - name: Publish to PyPI
+        uses: PyO3/maturin-action@v1
+        with:
+          working-directory: bindings/zkp-python
+          command: upload
+          args: --non-interactive --skip-existing dist/*
+        env:
+          MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
